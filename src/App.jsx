@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
+import SearchBar from "./components/SearchBar";
 import { data } from "./data";
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
 
   const handleAttributeList = (attribute) => {
     console.log(attribute, "hello");
+    setQuery(attribute);
     setAttributeName(attribute);
     // let operationsList =
     setOperationList(
@@ -34,13 +35,15 @@ function App() {
   };
 
   const handleOperations = (operation) => {
+    console.log(query, "in oper");
+    setQuery(operation);
     setOperationName(operation);
   };
 
   const handleTripleInput = (e) => {
     // console.log(query);
     if (e.key === "Enter" && query) {
-      e.preventDefault();
+      // e.preventDefault();
       setQueryTag([...queryTag, query]);
       inputRef.current.blur();
       setQuery("");
@@ -64,7 +67,7 @@ function App() {
       style={{ width: "100vw", height: "100vh" }}
       className=' bg-slate-900 p-3'
     >
-      <Navbar
+      <SearchBar
         query={query}
         setQuery={setQuery}
         attributeList={attributeList}

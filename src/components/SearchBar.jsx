@@ -3,7 +3,7 @@ import { useState } from "react";
 import { data } from "../data";
 import { IconCross } from "../assets/react.";
 
-const Navbar = ({
+const SearchBar = ({
   query,
   setQuery,
   attributeList,
@@ -22,25 +22,14 @@ const Navbar = ({
   inputRef,
 }) => {
   const placeholder = "Search Filter : select options-type value-press ENTER";
-  //   const [showList, setShowList] = useState(false);
 
-  //   const attributeListHolder = [...attributeList];
-  console.log(
-    operationList,
-    "nav",
-    operationList.operations,
-    operationList.attributeName
-  );
   const getInput = function (input) {
-    console.log(input);
     if (input) {
-      //   setAttributeList(
       const temp = attributeList.filter((item) =>
-        item.attributeName.includes(input)
+        item.attributeName.includes(input.toLowerCase())
       );
-      console.log(temp);
+
       setAttributeList(temp);
-      //   );
     } else {
       setAttributeList(data);
     }
@@ -72,12 +61,12 @@ const Navbar = ({
           );
         })}
         <input
-          //   className=' w-[100%] border-2 border-slate-700 bg-slate-900 p-3 mt-3 mb-3 font-[1.2em] text-slate-400'
           className=' w-[100%] outline-none border-slate-700 bg-slate-900 font-[1.2em] text-slate-400'
           placeholder={placeholder}
           type='text'
           // try to make query and operation name one variable
-          value={operationName || query || attributeName}
+          // || operationName
+          value={query || attributeName}
           ref={inputRef}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -86,9 +75,7 @@ const Navbar = ({
           onKeyDown={(e) => handleTripleInput(e)}
           onFocus={() => {
             setShowList((open) => !open);
-            // setAttributeList(data);
           }}
-          //   onMouseEnter={() => setShowList(true)}
         />
       </div>
       {showList && operationList.length === 0 ? (
@@ -127,4 +114,4 @@ const Navbar = ({
   );
 };
 
-export default Navbar;
+export default SearchBar;
