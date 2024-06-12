@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { data } from "./data";
@@ -10,6 +10,9 @@ function App() {
   const [operationList, setOperationList] = useState([]);
   const [operationName, setOperationName] = useState("");
   const [queryTag, setQueryTag] = useState([]);
+  const [showList, setShowList] = useState(false);
+
+  const inputRef = useRef();
 
   const handleAttributeList = (attribute) => {
     console.log(attribute, "hello");
@@ -35,11 +38,26 @@ function App() {
   };
 
   const handleTripleInput = (e) => {
-    console.log(query);
+    // console.log(query);
     if (e.key === "Enter" && query) {
+      e.preventDefault();
       setQueryTag([...queryTag, query]);
-      // setQuery("")
+      inputRef.current.blur();
+      setQuery("");
+      setOperationName("");
+      setAttributeName("");
+      // console.log(e.target.blur());
+      setOperationList([]);
+      // e.target.blur();
+      // if (e.target.focus())
+      setAttributeList(data);
+      // setShowList(false);
     }
+  };
+
+  const deleteTags = (tagIndex) => {
+    console.log(query, queryTag, "bxjsbxj");
+    setQueryTag(queryTag.filter((tag, index) => index !== tagIndex));
   };
   return (
     <div
@@ -59,6 +77,10 @@ function App() {
         operationName={operationName}
         handleTripleInput={handleTripleInput}
         queryTag={queryTag}
+        showList={showList}
+        setShowList={setShowList}
+        deleteTags={deleteTags}
+        inputRef={inputRef}
       />
       {/* {showChip} */}
     </div>
