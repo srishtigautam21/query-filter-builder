@@ -1,6 +1,6 @@
 ## React Query Filter
 
-- [live url](https://job-portal-frontend-sepia.vercel.app/)
+- [live url](https://query-filter-builder.vercel.app/)
 
 ## Functionalities
 
