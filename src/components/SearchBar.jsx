@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { data } from "../data";
 import { IconCross } from "../assets/react.";
 
@@ -9,11 +8,8 @@ const SearchBar = ({
   attributeList,
   handleAttributeList,
   handleOperations,
-  attributeName,
   setAttributeList,
   operationList,
-  setOperationList,
-  operationName,
   handleTripleInput,
   queryTag,
   showList,
@@ -28,12 +24,10 @@ const SearchBar = ({
       const temp = attributeList.filter((item) =>
         item.attributeName.includes(input.toLowerCase())
       );
-
       setAttributeList(temp);
     } else {
       setAttributeList(data);
     }
-    console.log(attributeList);
   };
   const debounce = function (func, delay) {
     let timer;
@@ -45,7 +39,7 @@ const SearchBar = ({
     };
   };
   const handleDebounceSearch = debounce(getInput, 1000);
-  console.log(operationList.length, showList);
+
   return (
     <>
       <div className=' w-[100%] border-2 border-slate-700 bg-slate-900 p-3 mt-3 mb-3 font-[1.2em] text-slate-400 flex flex-wrap gap-1'>
@@ -64,9 +58,7 @@ const SearchBar = ({
           className=' w-[100%] outline-none border-slate-700 bg-slate-900 font-[1.2em] text-slate-400'
           placeholder={placeholder}
           type='text'
-          // try to make query and operation name one variable
-          // || operationName
-          value={query || attributeName}
+          value={query}
           ref={inputRef}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -75,6 +67,7 @@ const SearchBar = ({
           onKeyDown={(e) => handleTripleInput(e)}
           onFocus={() => {
             setShowList((open) => !open);
+            setAttributeList(data);
           }}
         />
       </div>
